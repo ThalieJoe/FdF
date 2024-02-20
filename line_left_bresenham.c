@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 12:12:45 by stouitou          #+#    #+#             */
-/*   Updated: 2024/02/16 15:54:07 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:46:17 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	line_left_bresenham(t_img *img, t_data *pixel)
 	while (pixel->prev_x < pixel->cur_x)
 	{
 		if (pixel->prev_x == prevx || pixel->prev_x == curx)
-			my_pixel_put(img, pixel->prev_x, pixel->cur_y, 0xFFFFFF);
+			my_pixel_put(img, pixel->prev_x, pixel->prev_y, 0xFFFFFF);
 		else
-			my_pixel_put(img, pixel->prev_x, pixel->cur_y, 0xFF00FA);
+			my_pixel_put(img, pixel->prev_x, pixel->prev_y, 0xFFFF80);
 		pixel->prev_x++;
-		if (p > 0)
+		if (p < 0)
 			p += 2 * dy;
 		else
 		{
@@ -40,4 +40,5 @@ void	line_left_bresenham(t_img *img, t_data *pixel)
 			pixel->prev_y++;
 		}
 	}
+	pixel->prev_x = prevx;
 }

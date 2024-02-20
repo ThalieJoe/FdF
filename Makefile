@@ -2,6 +2,7 @@ NAME = fdf
 
 SOURCES =	main_v4.c \
 			check_file_ext.c \
+			parse_file.c \
 			init_image.c \
 			create_image.c \
 			draw.c \
