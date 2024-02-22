@@ -3,12 +3,13 @@ NAME = fdf
 SOURCES =	main_v4.c \
 			check_file_ext.c \
 			parse_file.c \
+			infos_init.c \
 			init_image.c \
+			handle_key_input.c \
+			create_plane.c \
 			create_image.c \
-			draw.c \
-			put_pixels_in_image.c \
-			line_left_bresenham.c \
 			line_up_bresenham.c \
+			line_down_bresenham.c \
 			my_pixel_put.c \
 			open_and_close_window.c \
 			clean_and_exit.c \
@@ -36,7 +37,7 @@ ${OBJ_DIR}/%.o: %.c ${HEADER}
 	${CC} ${CFLAGS} -c $< -o $@
 
 ${NAME}: ${OBJETS} ${LIBFT_PATH}/${LIBFT_NAME} ${MINILIBX_PATH}/${MINILIBX_NAME}
-	${CC} ${CFLAGS} -o $@ ${OBJETS} -L${LIBFT_PATH} -lft -L${MINILIBX_PATH} -lmlx -lXext -lX11
+	${CC} ${CFLAGS} -o $@ ${OBJETS} -L${LIBFT_PATH} -lft -L${MINILIBX_PATH} -lmlx -lXext -lX11 -lm
 
 ${LIBFT_PATH}/${LIBFT_NAME}:
 	make -C ${LIBFT_PATH}

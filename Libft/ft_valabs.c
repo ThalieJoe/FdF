@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_file_ext.c                                   :+:      :+:    :+:   */
+/*   ft_val_abs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/15 15:56:15 by stouitou          #+#    #+#             */
-/*   Updated: 2024/02/21 13:23:55 by stouitou         ###   ########.fr       */
+/*   Created: 2024/02/21 13:53:08 by stouitou          #+#    #+#             */
+/*   Updated: 2024/02/21 14:06:13 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "libft.h"
 
-void	check_file_ext(char *str)
+long int	ft_valabs(long int n)
 {
-	size_t	len;
-	char	*trim;
-
-	trim = ft_strtrim(str, "\t\n\v\f ");
-	len = ft_strlen(trim);
-	if (ft_strcmp(trim + (len - 4), ".fdf") != 0)
-	{
-		free (trim);
-		ft_putendl_fd("WRONG EXT", 2);
-		exit (1);
-	}
-	free (trim);
+	if (n < 0)
+		n *= -1;
+	return (n);
 }

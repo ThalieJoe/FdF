@@ -19,6 +19,7 @@ SOURCES = ft_isalpha.c \
 	 ft_strchr.c \
 	 ft_strrchr.c \
 	 ft_strnstr.c \
+	 ft_valabs.c \
 	 ft_atoi.c \
 	 ft_atoi_base.c \
 	 ft_itoa.c \

@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_v4.c                                          :+:      :+:    :+:   */
+/*   handle_key_input.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/15 10:43:08 by stouitou          #+#    #+#             */
-/*   Updated: 2024/02/21 16:29:36 by stouitou         ###   ########.fr       */
+/*   Created: 2024/02/20 15:37:24 by stouitou          #+#    #+#             */
+/*   Updated: 2024/02/20 15:37:38 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	main(int argc, char **argv)
+int	handle_key_input(int keysym, t_xvar **connect)
 {
-	t_xvar	*connect;
-	t_img	*img;
-	t_file	infos;
-	t_plan	plane;
-	int		margin;
-
-	if (argc != 2)
+	if (keysym == XK_Escape)
+	{
+		ft_printf("key pressed is %?32d\n", keysym);
+		close_window(connect);
 		return (0);
-	parse_file(argv[1], &infos);
-	img = init_image(&connect, &infos ,&plane);
-	create_image(&connect, &img, argv[1], &plane);
-	margin = infos.win_margin;
-	mlx_put_image_to_window(connect, connect->win_list, img, margin, margin);
-	mlx_loop(connect);
-	clean_and_exit(&connect, &img);
+	}
+	ft_printf("key pressed is %?33d\n", keysym);
 	return (0);
 }

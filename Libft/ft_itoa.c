@@ -6,17 +6,11 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:54:20 by stouitou          #+#    #+#             */
-/*   Updated: 2024/01/19 11:02:54 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:07:34 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-static long int	ft_valabs(long int n)
-{
-	if (n < 0)
-		n *= -1;
-	return (n);
-}
+#include "libft.h"
 
 static char	*ft_intzero(void)
 {

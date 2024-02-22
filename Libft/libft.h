@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:33:09 by stouitou          #+#    #+#             */
-/*   Updated: 2024/02/09 12:34:05 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:07:09 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
+long	ft_valabs(long n);
 int		ft_atoi(const char *nptr);
 int		ft_atoi_base(char *str, char *base);
 char	*ft_itoa(int n);
