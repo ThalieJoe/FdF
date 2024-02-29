@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_file.c                                       :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:54:34 by stouitou          #+#    #+#             */
-/*   Updated: 2024/02/21 11:52:25 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/02/23 15:46:30 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	free_and_exit(char **line)
+static void	free_and_exit(char **line, char *str, int fd)
 {
-	ft_putstr_fd("WRONG FORMAT IN FILE", 2);
+	ft_putstr_fd("Error in map format\n", 2);
 	free_tab(line);
+	free(str);
+	close (fd);
 	exit (1);
 }
 
-static int	check_color(char *color, char **line)
+static int	check_color(char *color, char **line, char *str, int fd)
 {
 	int	i;
 
@@ -27,75 +29,73 @@ static int	check_color(char *color, char **line)
 	while (color[i])
 	{
 		if (!ft_ischarset(color[i], "0123456789abcdefABCDEF"))
-			free_and_exit(line);
+			free_and_exit(line, str, fd);
 		i++;
 	}
 	if (i < 2 || i > 6 || color[i] != '\0')
-		free_and_exit(line);
+		free_and_exit(line, str, fd);
 	return (i);
 }
 
-static void	check_elem(char **line, int i)
+static void	check_elem(char **line, int i, char *str, int fd)
 {
 	int	j;
-	int	first_digit;
 
 	j = 0;
-	first_digit = 0;
 	if (line[i][j] == '+' || line[i][j] == '-')
 		j++;
 	if (!ft_isdigit(line[i][j]))
-		free_and_exit(line);
+		free_and_exit(line, str, fd);
 	while (ft_isdigit(line[i][j]))
 		j++;
 	if (ft_strncmp(line[i] + j, ",0x", 3) == 0)
 	{
 		j += 3;
-		j += check_color(line[i] + j, line);
+		j += check_color(line[i] + j, line, str, fd);
 	}
 	if (line[i][j] != '\0')
-		free_and_exit(line);
+		free_and_exit(line, str, fd);
 }
 
-static void	parse_line(char **line, t_file *infos)
+static void	check_line(char *str, int fd)
 {
-	int	i;
+	char		**line;
+	int			i;
+	static int	elems_per_line;
 
+	line = ft_split(str, " \n");
+	if (line == NULL)
+		free_and_exit(line, str, fd);
 	i = 0;
 	while (line[i])
 	{
-		check_elem(line, i);
-		if (ft_atoi(line[i]) > infos->height)
-			infos->height = ft_atoi(line[i]);
-		if (ft_atoi(line[i]) < infos->depth)
-			infos->depth = ft_atoi(line[i]);
+		check_elem(line, i, str, fd);
 		i++;
 	}
-	if (infos->elems == 0)
-		infos->elems = i;
-	else if (infos->elems != i)
-		free_and_exit(line);
+	if (elems_per_line == 0)
+		elems_per_line = i;
+	else if (elems_per_line != i)
+		free_and_exit(line, str, fd);
+	free_tab(line);
 }
 
-void	parse_file(char *file, t_file *infos)
+void	check_map(char *file)
 {
 	int		fd;
-	char	**line;
+	char	*str;
 
 	check_file_ext(file);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		exit (1);
-	infos->name = file;
-	infos_init(infos);
 	while (1)
 	{
-		line = ft_split(get_next_line(fd), " \n");
-		if (line == NULL)
+		str = get_next_line(fd);
+		if (str == NULL)
 			break ;
-		infos->lines++;
-		parse_line(line, infos);
-		free_tab(line);
+		check_line(str, fd);
+		free(str);
 	}
-	infos->size = infos->height - infos->depth;
+	free(str);
+	close (fd);
 }
