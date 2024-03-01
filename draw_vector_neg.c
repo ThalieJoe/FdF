@@ -6,13 +6,13 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:30:37 by stouitou          #+#    #+#             */
-/*   Updated: 2024/02/29 16:32:37 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:07:24 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	vector_down_down_bresenham_neg(t_xvar *connect, t_plane plane, int abs, int ord, int color)
+static void	vector_down_down_bresenham_neg(t_xvar *connect, t_plane plane, int abs, int ord, int color)
 {
 	int	dx;
 	int	dy;
@@ -35,7 +35,7 @@ void	vector_down_down_bresenham_neg(t_xvar *connect, t_plane plane, int abs, int
 	}
 }
 
-void	vector_down_left_bresenham_neg(t_xvar *connect, t_plane plane, int abs, int ord, int color)
+static void	vector_down_left_bresenham_neg(t_xvar *connect, t_plane plane, int abs, int ord, int color)
 {
 	int	dx;
 	int	dy;
@@ -58,7 +58,7 @@ void	vector_down_left_bresenham_neg(t_xvar *connect, t_plane plane, int abs, int
 	}
 }
 
-void	vector_up_up_bresenham_neg(t_xvar *connect, t_plane plane, int abs, int ord, int color)
+static void	vector_up_up_bresenham_neg(t_xvar *connect, t_plane plane, int abs, int ord, int color)
 {
 	int	dx;
 	int	dy;
@@ -81,7 +81,7 @@ void	vector_up_up_bresenham_neg(t_xvar *connect, t_plane plane, int abs, int ord
 	}
 }
 
-void	vector_up_left_bresenham_neg(t_xvar *connect, t_plane plane, int abs, int ord, int color)
+static void	vector_up_left_bresenham_neg(t_xvar *connect, t_plane plane, int abs, int ord, int color)
 {
 	int	dx;
 	int	dy;

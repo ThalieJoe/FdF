@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 11:23:49 by stouitou          #+#    #+#             */
-/*   Updated: 2024/02/29 16:37:30 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/01 16:53:40 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "./Minilibx/mlx_int.h"
 # include <X11/keysym.h>
 # include <math.h>
+# include <stdbool.h>
 
 typedef struct s_coord
 {
@@ -35,20 +36,26 @@ typedef struct s_coord
 
 typedef struct	s_view
 {
-	int	hor_rotation;
-	int	vert_rotation;
-	int	x_vect_abs;
-	int	x_vect_ord;
-	int	x_vect_angle_hor;
-	int	x_vect_angle_vert;
-	int	y_vect_abs;
-	int	y_vect_ord;
-	int	y_vect_angle_hor;
-	int	y_vect_angle_vert;
-	int	z_vect_abs;
-	int	z_vect_ord;
-	int	z_vect_angle_hor;
-	int	z_vect_angle_vert;
+	int		hor_rot;
+	int		vert_rot;
+	int		x_vect_abs;
+	int		x_vect_ord;
+	int		x_vect_angle_hor;
+	int		x_vect_angle_vert;
+	bool	x_vect_hor_ax;
+	bool	x_vect_vert_ax;
+	int		y_vect_abs;
+	int		y_vect_ord;
+	int		y_vect_angle_hor;
+	int		y_vect_angle_vert;
+	bool	y_vect_hor_ax;
+	bool	y_vect_vert_ax;
+	int		z_vect_abs;
+	int		z_vect_ord;
+	int		z_vect_angle_hor;
+	int		z_vect_angle_vert;
+	bool	z_vect_hor_ax;
+	bool	z_vect_vert_ax;
 }	t_view;
 
 typedef struct s_plane
@@ -88,23 +95,18 @@ typedef struct s_file
 	int		win_margin;
 }			t_file;
 
-// typedef struct s_plan
-// {
-// 	int o_abs;
-// 	int o_ord;
-// 	int x_abs;
-// 	int x_ord;
-// 	int y_abs;
-// 	int y_ord;
-// 	int z_abs;
-// 	int z_ord;
-// }		t_plan;
-
 int		main(int argc, char **argv);
 void	check_map(char *file);
 void	check_file_ext(char *str);
 void	parse_map(char *file, t_map *map);
 void	init_plane(t_map map, t_plane *plane);
+int		init_plane_width(t_map map, t_plane *plane, t_view view);
+int		init_plane_height(t_map map, t_plane *plane, t_view view);
+void	vertical_rotation(t_plane plane, t_view *view, int rotation);
+void	horizontal_rotation(t_plane plane, t_view *view, int rotation);
+void	check_my_axis_x(t_view *view, int hor_rot, int vert_rot);
+void	check_my_axis_y(t_view *view, int hor_rot, int vert_rot);
+void	check_my_axis_z(t_view *view, int hor_rot, int vert_rot);
 void	upd_view_vectors(t_plane plane, t_view *view);
 void	put_plane_in_window(t_xvar *connect, t_map map, t_plane *plane);
 void	show_plane(t_xvar *connect, t_plane plane, t_view *view);

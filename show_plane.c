@@ -6,14 +6,13 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:08:51 by stouitou          #+#    #+#             */
-/*   Updated: 2024/02/29 16:39:27 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:07:39 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 // x yellow | y turquoise | z pink
-
 void	show_plane(t_xvar *connect, t_plane plane, t_view *view)
 {
 	mlx_pixel_put(connect, connect->win_list, plane.xorigin_in_win, plane.yorigin_in_win, 0xFFFF00);

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_vector_pos.c                                  :+:      :+:    :+:   */
+/*   draw_vector.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:30:37 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/01 10:08:05 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:22:51 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	vector_down_down_bresenham_pos(t_xvar *connect, t_plane plane, int abs, int ord, int color)
+void	vector_down_down_bresenham(t_xvar *connect, t_plane plane, int abs, int ord, int color)
 {
 	int	dx;
 	int	dy;
@@ -35,7 +35,7 @@ static void	vector_down_down_bresenham_pos(t_xvar *connect, t_plane plane, int a
 	}
 }
 
-static void	vector_down_left_bresenham_pos(t_xvar *connect, t_plane plane, int abs, int ord, int color)
+void	vector_down_left_bresenham(t_xvar *connect, t_plane plane, int abs, int ord, int color)
 {
 	int	dx;
 	int	dy;
@@ -58,7 +58,7 @@ static void	vector_down_left_bresenham_pos(t_xvar *connect, t_plane plane, int a
 	}
 }
 
-static void	vector_up_up_bresenham_pos(t_xvar *connect, t_plane plane, int abs, int ord, int color)
+void	vector_up_up_bresenham(t_xvar *connect, t_plane plane, int abs, int ord, int color)
 {
 	int	dx;
 	int	dy;
@@ -81,7 +81,7 @@ static void	vector_up_up_bresenham_pos(t_xvar *connect, t_plane plane, int abs, 
 	}
 }
 
-static void	vector_up_left_bresenham_pos(t_xvar *connect, t_plane plane, int abs, int ord, int color)
+void	vector_up_left_bresenham(t_xvar *connect, t_plane plane, int abs, int ord, int color)
 {
 	int	dx;
 	int	dy;
@@ -104,7 +104,7 @@ static void	vector_up_left_bresenham_pos(t_xvar *connect, t_plane plane, int abs
 	}
 }
 
-void	draw_vector_pos(t_xvar *connect, t_plane plane, int abs, int ord, int color)
+void	draw_vector(t_xvar *connect, t_plane plane, int abs, int ord, int color)
 {
 	float	m;
 	int		dx;
@@ -117,11 +117,11 @@ void	draw_vector_pos(t_xvar *connect, t_plane plane, int abs, int ord, int color
 	else
 		m = dy / dx;
 	if (m <= -1)
-		vector_up_up_bresenham_pos(connect, plane, abs, ord, color);
+		vector_up_up_bresenham(connect, plane, abs, ord, color);
 	else if (m <= 0)
-		vector_up_left_bresenham_pos(connect, plane, abs, ord, color);
+		vector_up_left_bresenham(connect, plane, abs, ord, color);
 	else if (m <= 1)
-		vector_down_left_bresenham_pos(connect, plane, abs, ord, color);
+		vector_down_left_bresenham(connect, plane, abs, ord, color);
 	else
-		vector_down_down_bresenham_pos(connect, plane, abs, ord, color);
+		vector_down_down_bresenham(connect, plane, abs, ord, color);
 }
