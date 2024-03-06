@@ -8,20 +8,22 @@ SOURCES =	main.c \
 			init_plane_size.c \
 			vertical_rotation.c \
 			horizontal_rotation.c \
-			check_my_axis.c \
 			upd_view.c \
+			handle_key_input.c \
 			open_and_close_window.c \
 			put_plane_in_window.c \
 			show_plane.c \
 			draw_vector_pos.c \
 			draw_vector_neg.c \
+			add_to_coord.c \
+			create_map.c \
+			draw.c \
+			bresenham.c \
 			clean_and_exit.c \
 			free_tab.c \
 			# infos_init.c \
 			# init_image.c \
-			# handle_key_input.c \
 			# create_plane.c \
-			# create_image.c \
 			# add_coords.c \
 			# draw.c \
 			# line_up_bresenham.c \

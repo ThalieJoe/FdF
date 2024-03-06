@@ -12,6 +12,8 @@ SOURCES = ft_isalpha.c \
 	 ft_strlen.c \
 	 ft_nbrlen.c \
 	 ft_nbrlen_base.c \
+	 ft_strtoupper.c \
+	 ft_strtolower.c \
 	 ft_strlcpy.c \
 	 ft_strlcat.c \
 	 ft_strcmp.c \
@@ -22,6 +24,7 @@ SOURCES = ft_isalpha.c \
 	 ft_valabs.c \
 	 ft_atoi.c \
 	 ft_atoi_base.c \
+	 ft_atol.c \
 	 ft_itoa.c \
 	 ft_itoa_base.c \
 	 ft_convert_base.c \

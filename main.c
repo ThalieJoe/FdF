@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 10:43:08 by stouitou          #+#    #+#             */
-/*   Updated: 2024/02/29 14:33:06 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:21:26 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int	main(int argc, char **argv)
 	open_window(&connect, map, plane);
 	put_plane_in_window(connect, map, &plane);
 	// img = init_image(&connect, &infos ,&plane);
-	// create_image(&connect, &img, argv[1], &plane);
+	create_map(connect, map, plane);
 	// margin = infos.win_margin;
 	// mlx_put_image_to_window(connect, connect->win_list, img, margin, margin);
 	mlx_loop(connect);
-	// clean_and_exit(&connect, &img);
+	clean_and_exit(connect, &plane, 0);
 	// free(map.plane);
 	return (0);
 }

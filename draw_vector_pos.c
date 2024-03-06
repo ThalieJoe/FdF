@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:30:37 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/01 10:08:05 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:17:27 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	draw_vector_pos(t_xvar *connect, t_plane plane, int abs, int ord, int color
 	if (dx == 0)
 		m = dy;
 	else
-		m = dy / dx;
+		m = (float)dy / (float)dx;
 	if (m <= -1)
 		vector_up_up_bresenham_pos(connect, plane, abs, ord, color);
 	else if (m <= 0)

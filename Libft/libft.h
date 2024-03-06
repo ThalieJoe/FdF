@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:33:09 by stouitou          #+#    #+#             */
-/*   Updated: 2024/02/21 14:07:09 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/06 12:00:58 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdbool.h>
+# include <limits.h>
 # include <stdarg.h>
 
 int		ft_isalpha(int c);
@@ -30,6 +32,8 @@ int		ft_ischarset(char c, const char *str);
 size_t	ft_strlen(const char *s);
 int		ft_nbrlen(long int n);
 int		ft_nbrlen_base(long int n, char *base);
+char	*ft_strtoupper(const char *str);
+char	*ft_strtolower(const char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 int		ft_strcmp(const char *s1, const char *s2);
@@ -40,6 +44,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len);
 long	ft_valabs(long n);
 int		ft_atoi(const char *nptr);
 int		ft_atoi_base(char *str, char *base);
+long	ft_atol(const char *nptr);
 char	*ft_itoa(int n);
 char	*ft_itoa_base(int n, char *base);
 char	*ft_convert_base(char *n, char *base_from, char *base_to);

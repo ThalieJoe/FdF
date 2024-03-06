@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_and_exit.c                                   :+:      :+:    :+:   */
+/*   ft_strtolower.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/15 15:32:59 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/06 16:36:45 by stouitou         ###   ########.fr       */
+/*   Created: 2024/03/05 16:28:58 by stouitou          #+#    #+#             */
+/*   Updated: 2024/03/06 09:55:59 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "libft.h"
 
-void	clean_and_exit(t_xvar *connect, t_plane *plane, int err)
+char	*ft_strtolower(const char *str)
 {
-	free(plane->view);
-	if (connect != NULL)
+	char	*new;
+	int		i;
+	int		len;
+
+	if (str == NULL)
+		return (NULL);
+	len = ft_strlen(str);
+	new = (char *)malloc(sizeof(char) * (len + 1));
+	if (new == NULL)
+		return (NULL);
+	i = 0;
+	while (str[i])
 	{
-		mlx_destroy_display(connect);
-		free(connect);
+		new[i] = ft_tolower(str[i]);
+		i++;
 	}
-	if (err)
-		exit (EXIT_FAILURE);
+	new[i] = '\0';
+	return (new);
 }
