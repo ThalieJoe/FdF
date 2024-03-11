@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   parse_grid.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 13:03:52 by stouitou          #+#    #+#             */
-/*   Updated: 2024/02/26 12:40:08 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:17:13 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	get_extremes(t_map *map, char *str)
+static void	get_extremes(t_grid *grid, char *str)
 {
 	char	**line;
 	int		i;
@@ -23,10 +23,10 @@ static void	get_extremes(t_map *map, char *str)
 	i = 0;
 	while (line[i])
 	{
-		if (ft_atoi(line[i]) < map->deepest)
-			map->deepest = ft_atoi(line[i]);
-		if (ft_atoi(line[i]) > map->highest)
-			map->highest = ft_atoi(line[i]);
+		if (ft_atoi(line[i]) < grid->deepest)
+			grid->deepest = ft_atoi(line[i]);
+		if (ft_atoi(line[i]) > grid->highest)
+			grid->highest = ft_atoi(line[i]);
 		i++;
 	}
 	free_tab(line);
@@ -45,27 +45,28 @@ static int	grid_length(char *str)
 	return (i);
 }
 
-void	parse_map(char *file, t_map *map)
+void	parse_grid(char *file, t_grid *grid)
 {
 	int		fd;
 	char	*str;
 
+	check_grid(file);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		exit (1);
-	map->name = file;
-	map->deepest = 0;
-	map->highest = 0;
+	grid->name = file;
+	grid->deepest = 0;
+	grid->highest = 0;
 	str = get_next_line(fd);
-	get_extremes(map, str);
-	map->grid_width = 0;
-	map->grid_length = grid_length(str);
+	get_extremes(grid, str);
+	grid->width = 0;
+	grid->length = grid_length(str);
 	free(str);
 	while (str)
 	{
 		str = get_next_line(fd);
-		get_extremes(map, str);
-		map->grid_width++;
+		get_extremes(grid, str);
+		grid->width++;
 		free(str);
 	}
 	close (fd);

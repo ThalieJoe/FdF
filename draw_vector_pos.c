@@ -6,122 +6,122 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:30:37 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/06 15:17:27 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/11 13:34:19 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	vector_down_down_bresenham_pos(t_xvar *connect, t_plane plane, int abs, int ord, int color)
+static void	vector_down_down_bresenham_pos(t_xvar *connect, t_px o, t_vect vect, int color)
 {
 	int	dx;
 	int	dy;
 	int	p;
 
-	dx = ft_valabs(abs - plane.xorigin_in_win);
-	dy = ft_valabs(ord - plane.yorigin_in_win);
+	dx = ft_valabs(vect.abs - o.abs);
+	dy = ft_valabs(vect.ord - o.ord);
 	p = 2 * dx - dy;
-	while (plane.yorigin_in_win < ord)
+	while (o.ord < vect.ord)
 	{
-		mlx_pixel_put(connect, connect->win_list, plane.xorigin_in_win, plane.yorigin_in_win, color);
-		plane.yorigin_in_win++;
+		mlx_pixel_put(connect, connect->win_list, o.abs, o.ord, color);
+		o.ord++;
 		if (p < 0)
 			p += 2 * dx;
 		else
 		{
 			p += 2 * dx - 2 * dy;
-			plane.xorigin_in_win++;
+			o.abs++;
 		}
 	}
 }
 
-static void	vector_down_left_bresenham_pos(t_xvar *connect, t_plane plane, int abs, int ord, int color)
+static void	vector_down_left_bresenham_pos(t_xvar *connect, t_px o, t_vect vect, int color)
 {
 	int	dx;
 	int	dy;
 	int	p;
 
-	dx = ft_valabs(abs - plane.xorigin_in_win);
-	dy = ft_valabs(ord - plane.yorigin_in_win);
+	dx = ft_valabs(vect.abs - o.abs);
+	dy = ft_valabs(vect.ord - o.ord);
 	p = 2 * dy - dx;
-	while (plane.xorigin_in_win < abs)
+	while (o.abs < vect.abs)
 	{
-		mlx_pixel_put(connect, connect->win_list, plane.xorigin_in_win, plane.yorigin_in_win, color);
-		plane.xorigin_in_win++;
+		mlx_pixel_put(connect, connect->win_list, o.abs, o.ord, color);
+		o.abs++;
 		if (p < 0)
 			p += 2 * dy;
 		else
 		{
 			p += 2 * dy - 2 * dx;
-			plane.yorigin_in_win++;
+			o.ord++;
 		}
 	}
 }
 
-static void	vector_up_up_bresenham_pos(t_xvar *connect, t_plane plane, int abs, int ord, int color)
+static void	vector_up_up_bresenham_pos(t_xvar *connect, t_px o, t_vect vect, int color)
 {
 	int	dx;
 	int	dy;
 	int	p;
 
-	dx = ft_valabs(abs - plane.xorigin_in_win);
-	dy = ft_valabs(ord - plane.yorigin_in_win);
+	dx = ft_valabs(vect.abs - o.abs);
+	dy = ft_valabs(vect.ord - o.ord);
 	p = 2 * dx - dy;
-	while (plane.yorigin_in_win > ord)
+	while (o.ord > vect.ord)
 	{
-		mlx_pixel_put(connect, connect->win_list, plane.xorigin_in_win, plane.yorigin_in_win, color);
-		plane.yorigin_in_win--;
+		mlx_pixel_put(connect, connect->win_list, o.abs, o.ord, color);
+		o.ord--;
 		if (p < 0)
 			p += 2 * dx;
 		else
 		{
 			p += 2 * dx - 2 * dy;
-			plane.xorigin_in_win++;
+			o.abs++;
 		}
 	}
 }
 
-static void	vector_up_left_bresenham_pos(t_xvar *connect, t_plane plane, int abs, int ord, int color)
+static void	vector_up_left_bresenham_pos(t_xvar *connect, t_px o, t_vect vect, int color)
 {
 	int	dx;
 	int	dy;
 	int	p;
 
-	dx = ft_valabs(abs - plane.xorigin_in_win);
-	dy = ft_valabs(ord - plane.yorigin_in_win);
+	dx = ft_valabs(vect.abs - o.abs);
+	dy = ft_valabs(vect.ord - o.ord);
 	p = 2 * dy - dx;
-	while (plane.xorigin_in_win < abs)
+	while (o.abs < vect.abs)
 	{
-		mlx_pixel_put(connect, connect->win_list, plane.xorigin_in_win, plane.yorigin_in_win, color);
-		plane.xorigin_in_win++;
+		mlx_pixel_put(connect, connect->win_list, o.abs, o.ord, color);
+		o.abs++;
 		if (p < 0)
 			p += 2 * dy;
 		else
 		{
 			p += 2 * dy - 2 * dx;
-			plane.yorigin_in_win--;
+			o.ord--;
 		}
 	}
 }
 
-void	draw_vector_pos(t_xvar *connect, t_plane plane, int abs, int ord, int color)
+void	draw_vector_pos(t_xvar *connect, t_px o, t_vect vect, int color)
 {
 	float	m;
 	int		dx;
 	int		dy;
 
-	dx = abs - plane.xorigin_in_win;
-	dy = ord - plane.yorigin_in_win;
+	dx = vect.abs - o.abs;
+	dy = vect.ord - o.ord;
 	if (dx == 0)
 		m = dy;
 	else
 		m = (float)dy / (float)dx;
 	if (m <= -1)
-		vector_up_up_bresenham_pos(connect, plane, abs, ord, color);
+		vector_up_up_bresenham_pos(connect, o, vect, color);
 	else if (m <= 0)
-		vector_up_left_bresenham_pos(connect, plane, abs, ord, color);
+		vector_up_left_bresenham_pos(connect, o, vect, color);
 	else if (m <= 1)
-		vector_down_left_bresenham_pos(connect, plane, abs, ord, color);
+		vector_down_left_bresenham_pos(connect, o, vect, color);
 	else
-		vector_down_down_bresenham_pos(connect, plane, abs, ord, color);
+		vector_down_down_bresenham_pos(connect, o, vect, color);
 }

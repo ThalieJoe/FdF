@@ -1,16 +1,21 @@
 NAME = fdf
 
 SOURCES =	main.c \
-			check_map.c \
+			check_grid.c \
 			check_file_ext.c \
-			parse_map.c \
+			parse_grid.c \
 			init_plane.c \
-			init_plane_size.c \
 			vertical_rotation.c \
 			horizontal_rotation.c \
-			upd_view.c \
+			init_plane_height.c \
+			init_plane_width.c \
+			init_pixel.c \
+			adapt_scale_to_two.c \
+			upd_abs.c \
+			upd_ord.c \
 			handle_key_input.c \
-			open_and_close_window.c \
+			open_window.c \
+			close_window.c \
 			put_plane_in_window.c \
 			show_plane.c \
 			draw_vector_pos.c \
@@ -21,14 +26,8 @@ SOURCES =	main.c \
 			bresenham.c \
 			clean_and_exit.c \
 			free_tab.c \
-			# infos_init.c \
-			# init_image.c \
-			# create_plane.c \
-			# add_coords.c \
-			# draw.c \
-			# line_up_bresenham.c \
-			# line_down_bresenham.c \
-			# my_pixel_put.c \
+			coord_clear.c \
+			free_plane.c
 
 OBJ_DIR = .obj
 OBJETS = ${addprefix ${OBJ_DIR}/,${SOURCES:.c=.o}}

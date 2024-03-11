@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_key_input.c                                 :+:      :+:    :+:   */
+/*   init_pixel.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 15:37:24 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/07 14:55:10 by stouitou         ###   ########.fr       */
+/*   Created: 2024/03/11 15:51:50 by stouitou          #+#    #+#             */
+/*   Updated: 2024/03/11 17:05:23 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	handle_key_input(int keysym, t_xvar *connect)
+void init_pixel(t_px **pixel)
 {
-	if (keysym == XK_Escape)
-	{
-		ft_printf("key pressed is %?32d\n", keysym);
-		close_window(connect);
-		return (0);
-	}
-	ft_printf("key pressed is %?33d\n", keysym);
-	return (0);
+	*pixel = (t_px *)malloc(sizeof(t_px));
+	if (*pixel == NULL)
+		return ;
 }

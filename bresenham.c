@@ -6,106 +6,100 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:40:29 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/06 16:01:38 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:59:18 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	line_up_up_bresenham_pos(t_xvar *connect, t_coord cur, t_coord prev)
+void	line_up_up_bresenham_pos(t_xvar *connect, t_px cur, t_coord prev)
 {
-	// [x] definir dx et dy
-	// [x] definir p = 2dx -dy
-	// [x] une boucle while valide tant que coord.prev_x.ord n'a pas atteint coord.ord
-	// [x] et on put_pixel et on increment coord.prev_x.ord
-	// [x] ensuite, en fonction de la valeur de p on reevalue coord_prev_x_abs et p en fonction de la valeur de p
-	// perfection [x]
 	int	dx;
 	int	dy;
 	int	p;
 
-	dx = ft_valabs(cur.abs - prev.abs);
-	dy = ft_valabs(cur.ord - prev.ord);
+	dx = ft_valabs(cur.abs - prev.px->abs);
+	dy = ft_valabs(cur.ord - prev.px->ord);
 	p = 2 * dx - dy;
-	while (prev.ord > cur.ord)
+	while (prev.px->ord > cur.ord)
 	{
-		mlx_pixel_put(connect, connect->win_list, prev.abs, prev.ord, prev.color);
-		prev.ord--;
+		mlx_pixel_put(connect, connect->win_list, prev.px->abs, prev.px->ord, prev.color);
+		prev.px->ord--;
 		if (p < 0)
 			p += 2 * dx;
 		else
 		{
 			p += 2 * dx - 2 * dy;
-			prev.abs++;
+			prev.px->abs++;
 		}
 	}
 }
 
-void	line_up_left_bresenham_pos(t_xvar *connect, t_coord cur, t_coord prev)
+void	line_up_left_bresenham_pos(t_xvar *connect, t_px cur, t_coord prev)
 {
 	int	dx;
 	int	dy;
 	int	p;
 
-	dx = ft_valabs(cur.abs - prev.abs);
-	dy = ft_valabs(cur.ord - prev.ord);
+	dx = ft_valabs(cur.abs - prev.px->abs);
+	dy = ft_valabs(cur.ord - prev.px->ord);
 	p = 2 * dy - dx;
-	while (prev.abs < cur.abs)
+	while (prev.px->abs < cur.abs)
 	{
-		mlx_pixel_put(connect, connect->win_list, prev.abs, prev.ord, prev.color);
-		prev.abs++;
+		mlx_pixel_put(connect, connect->win_list, prev.px->abs, prev.px->ord, prev.color);
+		prev.px->abs++;
 		if (p < 0)
 			p += 2 * dy;
 		else
 		{
 			p += 2 * dy - 2 * dx;
-			prev.ord--;
+			prev.px->ord--;
 		}
 	}
 }
 
-void	line_down_left_bresenham_pos(t_xvar *connect, t_coord cur, t_coord prev)
+void	line_down_left_bresenham_pos(t_xvar *connect, t_px cur, t_coord prev)
 {
 	int	dx;
 	int	dy;
 	int	p;
 
-	dx = ft_valabs(cur.abs - prev.abs);
-	dy = ft_valabs(cur.ord - prev.ord);
+	dx = ft_valabs(cur.abs - prev.px->abs);
+	dy = ft_valabs(cur.ord - prev.px->ord);
 	p = 2 * dy - dx;
-	while (prev.abs < cur.abs)
+	while (prev.px->abs < cur.abs)
 	{
-		mlx_pixel_put(connect, connect->win_list, prev.abs, prev.ord, prev.color);
-		prev.abs++;
+		mlx_pixel_put(connect, connect->win_list, prev.px->abs, prev.px->ord, prev.color);
+		prev.px->abs++;
 		if (p < 0)
 			p += 2 * dy;
 		else
 		{
 			p += 2 * dy - 2 * dx;
-			prev.ord++;
+			prev.px->ord++;
 		}
 	}
 }
 
-void	line_down_down_bresenham_pos(t_xvar *connect, t_coord cur, t_coord prev)
+void	line_down_down_bresenham_pos(t_xvar *connect, t_px cur, t_coord prev)
 {
 	int	dx;
 	int	dy;
 	int	p;
 
-	dx = ft_valabs(cur.abs - prev.abs);
-	dy = ft_valabs(cur.ord - prev.ord);
+	dx = ft_valabs(cur.abs - prev.px->abs);
+	dy = ft_valabs(cur.ord - prev.px->ord);
 	p = 2 * dx - dy;
-	while (prev.ord < cur.ord)
+	while (prev.px->ord < cur.ord)
 	{
-		mlx_pixel_put(connect, connect->win_list, prev.abs, prev.ord, prev.color);
-		prev.ord++;
+		mlx_pixel_put(connect, connect->win_list, prev.px->abs, prev.px->ord, prev.color);
+		prev.px->ord++;
 		if (p < 0)
 			p += 2 * dx;
 		else
 		{
 			p += 2 * dx - 2 * dy;
-			prev.abs++;
+			prev.px->abs++;
 		}
 	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   check_grid.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:54:34 by stouitou          #+#    #+#             */
-/*   Updated: 2024/02/23 15:46:30 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/11 10:28:24 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	check_line(char *str, int fd)
 	free_tab(line);
 }
 
-void	check_map(char *file)
+void	check_grid(char *file)
 {
 	int		fd;
 	char	*str;

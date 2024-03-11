@@ -6,45 +6,30 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 13:25:40 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/06 15:21:53 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:06:06 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	print_coord(t_coord *coord)
-{
-	while (coord)
-	{
-		ft_printf("%?32s %?92s\n", "NEW", "NODE :");
-		ft_printf("coord->x = %d\n", coord->x);
-		ft_printf("coord->y = %d\n", coord->y);
-		ft_printf("coord->z = %d\n", coord->z);
-		ft_printf("coord->abs = %d\n", coord->abs);
-		ft_printf("coord->ord = %d\n", coord->ord);
-		printf("coord->color = %ld\n", coord->color);
-		if (coord->prev_x)
-			ft_printf("coord->prev_x->x = %?33d, coord->prev_x->y = %?33d\n", coord->prev_x->x, coord->prev_x->y);
-		if (coord->prev_y)
-			ft_printf("coord->prev_y->x = %?34d, coord->prev_y->y = %?34d\n", coord->prev_y->x, coord->prev_y->y);
-		coord = coord->next;
-	}
-}
-
-void	coord_clear(t_coord **coord)
-{
-	t_coord	*next;
-
-	if (coord == NULL)
-		return ;
-	while (*coord)
-	{
-		next = (*coord)->next;
-		free(*coord);
-		*coord = next;
-	}
-	*coord = NULL;
-}
+// static void	print_coord(t_coord *coord)
+// {
+// 	while (coord)
+// 	{
+// 		ft_printf("%?32s %?92s\n", "NEW", "NODE :");
+// 		ft_printf("coord->x = %d\n", coord->x);
+// 		ft_printf("coord->y = %d\n", coord->y);
+// 		ft_printf("coord->z = %d\n", coord->z);
+// 		ft_printf("coord->px->abs = %d\n", coord->px->abs);
+// 		ft_printf("coord->px->ord = %d\n", coord->px->ord);
+// 		printf("coord->color = %ld\n", coord->color);
+// 		if (coord->prev_x)
+// 			ft_printf("coord->prev_x->x = %?33d, coord->prev_x->y = %?33d\n", coord->prev_x->x, coord->prev_x->y);
+// 		if (coord->prev_y)
+// 			ft_printf("coord->prev_y->x = %?34d, coord->prev_y->y = %?34d\n", coord->prev_y->x, coord->prev_y->y);
+// 		coord = coord->next;
+// 	}
+// }
 
 static void	find_color(t_coord *new, char *elem)
 {
@@ -69,7 +54,7 @@ static void	find_color(t_coord *new, char *elem)
 	}
 }
 
-static void	find_coord_prev_xy(t_coord *coord, t_coord *new)
+static void	find_coord_previous(t_coord *coord, t_coord *new)
 {
 	t_coord	*cur;
 
@@ -113,13 +98,20 @@ static t_coord	*coord_new(t_xvar *connect, int *val, t_plane plane, t_coord **co
 	if (new == NULL)
 	{
 		coord_clear(coord);
-		clean_and_exit(connect, &plane, 1);
+		free_plane(&plane);
+		clean_and_exit(connect, 1);
 	}
 	new->x = val[0];
 	new->y = val[1];
 	new->z = val[2];
-	new->abs = plane.xorigin_in_win + plane.view->x_vect_abs * new->x + plane.view->y_vect_abs * new->y + plane.view->z_vect_abs * new->z;
-	new->ord = plane.yorigin_in_win - plane.view->x_vect_ord * new->x - plane.view->y_vect_ord * new->y - plane.view->z_vect_ord * new->z;
+	init_pixel(&new->px);
+	if (new->px == NULL)
+	{
+		free_plane(&plane);
+		clean_and_exit(connect, 1);
+	}
+	new->px->abs = plane.o->abs + plane.x->abs * new->x + plane.y->abs * new->y + plane.z->abs * new->z;
+	new->px->ord = plane.o->ord - plane.x->ord * new->x - plane.y->ord * new->y - plane.z->ord * new->z;
 	new->next = NULL;
 	return (new);
 }
@@ -141,7 +133,7 @@ void	add_to_coord(t_xvar *connect, char **elem, t_coord **coord, t_plane plane)
 		val[2] = z;
 		new = coord_new(connect, val, plane, coord);
 		find_color(new, elem[i]);
-		find_coord_prev_xy(*coord, new);
+		find_coord_previous(*coord, new);
 		coord_add_back(coord, new);
 		i++;
 	}

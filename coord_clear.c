@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_pixel_put.c                                     :+:      :+:    :+:   */
+/*   coord_clear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/16 12:47:35 by stouitou          #+#    #+#             */
-/*   Updated: 2024/02/23 11:15:52 by stouitou         ###   ########.fr       */
+/*   Created: 2024/03/11 13:54:27 by stouitou          #+#    #+#             */
+/*   Updated: 2024/03/11 17:11:34 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	my_pixel_put(t_img *img, int x, int y, int color)
+void	coord_clear(t_coord **coord)
 {
-	char	*dst;
-	int		offset;
+	t_coord	*next;
 
-	if (x < 0 || y < 0 || x > img->width || y > img->height)
+	if (coord == NULL)
 		return ;
-	offset = (x * (img->bpp / 8) + y * img->size_line);
-	dst = img->data + offset;
-	*(int *)dst = color;
+	while (*coord)
+	{
+		next = (*coord)->next;
+		free((*coord)->px);
+		free(*coord);
+		*coord = next;
+	}
+	*coord = NULL;
 }
