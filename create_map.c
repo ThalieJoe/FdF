@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 16:32:30 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/11 14:56:38 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:30:44 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@ static void	draw_horizontal_line(t_xvar *connect, int cur_abs, int prev_abs, int
 	{
 		mlx_pixel_put(connect, connect->win_list, prev_abs, ord, 0xFFFFFF);
 		prev_abs++;
+	}
+}
+
+static void	draw_vertical_line(t_xvar *connect, t_plane plane)
+{
+	int	origin;
+
+	origin = 0;
+	while (origin < plane.height + plane.v_marg)
+	{
+		mlx_pixel_put(connect, connect->win_list, ((plane.width + (plane.h_marg * 2)) / 2), origin, 0xFFFF00);
+		origin++;
 	}
 }
 
@@ -44,6 +56,7 @@ void	create_map(t_xvar *connect, t_grid grid, t_plane plane)
 	}
 	close(fd);
 	draw_horizontal_line(connect, plane.width, plane.h_marg, plane.o->ord);
+	draw_vertical_line(connect, plane);
 	draw(connect, coord);
 	coord_clear(&coord);
 }

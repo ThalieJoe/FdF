@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 09:49:43 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/11 13:00:16 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:13:46 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ static void upd_angles(t_vect *vect, int rotation)
 {
     vect->h_angle = (vect->h_angle + rotation) % 360;
     if ((vect->v_angle < 180 && vect->h_angle > 180)
-        || (vect->v_angle > 180 && vect->h_angle < 180))
-        vect->v_angle = (vect->v_angle + 180) % 360;
+        vect->v_angle = vect->h_angle - 90;
+    if (vect->v_angle > 180 && vect->h_angle < 180))
+        vect->v_angle = vect->h_angle + 90;
 }
 
 void    vertical_rotation(t_plane *plane, int rotation)

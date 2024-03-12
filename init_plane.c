@@ -6,12 +6,16 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:58:57 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/11 17:07:00 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:01:58 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+Allocate memory for X vector and for pixel structure in it
+Initialize values of vector structure in plane
+*/
 static void	init_vect_x(t_plane *plane)
 {
 	plane->x = (t_vect *)malloc(sizeof(t_vect));
@@ -21,18 +25,15 @@ static void	init_vect_x(t_plane *plane)
 		exit (EXIT_FAILURE);
 	}
 	plane->x->scale = 100;
-	plane->x->abs = 0;
-	plane->x->ord = 0;
-	plane->x->h_angle = 270;
-	plane->x->v_angle = 270;
-	init_pixel(&plane->x->in_win);
-	if (plane->x->in_win == NULL)
-	{
-		free_plane(plane);
-		exit (EXIT_FAILURE);
-	}
+	plane->x->abs = (int)(cos(45 * M_PI / 180) * plane->x->scale);
+	plane->x->ord = (int)(cos(75 * M_PI / 180) * plane->x->scale);
+	plane->x->in_win = init_pixel(plane);
 }
 
+/*
+Allocate memory for Y vector and for pixel structure in it
+Initialize values of vector structure in plane
+*/
 static void	init_vect_y(t_plane *plane)
 {
 	plane->y = (t_vect *)malloc(sizeof(t_vect));
@@ -42,18 +43,15 @@ static void	init_vect_y(t_plane *plane)
 		exit (EXIT_FAILURE);
 	}
 	plane->y->scale = 100;
-	plane->y->abs = plane->y->scale;
-	plane->y->ord = 0;
-	plane->y->h_angle = 0;
-	plane->y->v_angle = 90;
-	init_pixel(&plane->y->in_win);
-	if (plane->y->in_win == NULL)
-	{
-		free_plane(plane);
-		exit (EXIT_FAILURE);
-	}
+	plane->y->abs = (int)(cos(45 * M_PI / 180) * plane->y->scale);
+	plane->y->ord = (int)((cos(75 * M_PI / 180) * plane->y->scale) * (-1));
+	plane->y->in_win = init_pixel(plane);
 }
 
+/*
+Allocate memory for Z vector and for pixel structure in it
+Initialize values of vector structure in plane
+*/
 static void	init_vect_z(t_plane *plane)
 {
 	plane->z = (t_vect *)malloc(sizeof(t_vect));
@@ -64,43 +62,19 @@ static void	init_vect_z(t_plane *plane)
 	}
 	plane->z->scale = 100;
 	plane->z->abs = 0;
-	plane->z->ord = plane->z->scale;
-	plane->z->h_angle = 90;
-	plane->z->v_angle = 0;
-	init_pixel(&plane->z->in_win);
-	if (plane->z->in_win == NULL)
-	{
-		free_plane(plane);
-		exit (EXIT_FAILURE);
-	}
+	plane->z->ord = (int)(cos(15 * M_PI / 180) * plane->y->scale);
+	plane->z->in_win = init_pixel(plane);
 }
 
-static void	init_rotations(t_grid grid, t_plane *plane)
-{
-	int	h_rot;
-	int	v_rot;
-
-	v_rot = (int)((atan((float)((plane->x->scale * grid.length) / (plane->y->scale * grid.width))) * 180 / M_PI));
-	v_rot = 70;
-	h_rot = 15;
-	vertical_rotation(plane, v_rot);
-	horizontal_rotation(plane, h_rot);
-}
-
+/*Initialize values of plane structure*/
 void	init_plane(t_grid grid, t_plane *plane)
 {
 	init_vect_x(plane);
 	init_vect_y(plane);
 	init_vect_z(plane);
-	init_rotations(grid, plane);
-	plane->h_marg = (int)fmax((float)plane->x->abs, (float)plane->y->abs);
-	plane->v_marg = (int)fmin((float)plane->z->ord, 20);
-	plane->height = init_plane_height(grid, plane);
 	plane->width = init_plane_width(grid, plane);
-	init_pixel(&plane->o);
-	if (plane->o == NULL)
-	{
-		free_plane(plane);
-		exit (EXIT_FAILURE);
-	}
+	plane->height = init_plane_height(grid, plane);
+	plane->h_marg = init_horizontal_margin(*plane);
+	plane->v_marg = init_vertical_margin(*plane);
+	plane->o = init_pixel(plane);
 }

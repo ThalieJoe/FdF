@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 13:25:40 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/11 17:06:06 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:38:41 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,7 @@ static t_coord	*coord_new(t_xvar *connect, int *val, t_plane plane, t_coord **co
 	new->x = val[0];
 	new->y = val[1];
 	new->z = val[2];
-	init_pixel(&new->px);
-	if (new->px == NULL)
-	{
-		free_plane(&plane);
-		clean_and_exit(connect, 1);
-	}
+	new->px = init_pixel(&plane);
 	new->px->abs = plane.o->abs + plane.x->abs * new->x + plane.y->abs * new->y + plane.z->abs * new->z;
 	new->px->ord = plane.o->ord - plane.x->ord * new->x - plane.y->ord * new->y - plane.z->ord * new->z;
 	new->next = NULL;

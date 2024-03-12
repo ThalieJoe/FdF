@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 11:23:49 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/11 17:05:31 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:12:03 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ typedef struct s_vect
 	int		scale;
 	int		abs;
 	int		ord;
-	int		h_angle;
-	int		v_angle;
 	t_px	*in_win;
 }			t_vect;
 
@@ -53,10 +51,10 @@ typedef struct s_plane
 	t_vect	*x;
 	t_vect	*y;
 	t_vect	*z;
+	int		width;
+	int		height;
 	int		h_marg;
 	int		v_marg;
-	int		height;
-	int		width;
 	t_px	*o;
 }			t_plane;
 
@@ -77,11 +75,11 @@ void	check_grid(char *file);
 void	check_file_ext(char *str);
 void	parse_grid(char *file, t_grid *grid);
 void	init_plane(t_grid grid, t_plane *plane);
-void	vertical_rotation(t_plane *plane, int rotation);
-void	horizontal_rotation(t_plane *plane, int rotation);
 int		init_plane_width(t_grid grid, t_plane *plane);
 int		init_plane_height(t_grid grid, t_plane *plane);
-void 	init_pixel(t_px **pixel);
+int		init_horizontal_margin(t_plane plane);
+int		init_vertical_margin(t_plane plane);
+t_px 	*init_pixel(t_plane *plane);
 void	upd_all_abs(t_plane *plane);
 void	upd_all_ord(t_plane *plane);
 void	adapt_scale_to_two(t_plane *plane);

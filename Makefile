@@ -5,14 +5,14 @@ SOURCES =	main.c \
 			check_file_ext.c \
 			parse_grid.c \
 			init_plane.c \
-			vertical_rotation.c \
-			horizontal_rotation.c \
 			init_plane_height.c \
 			init_plane_width.c \
+			init_horizontal_margin.c \
+			init_vertical_margin.c \
 			init_pixel.c \
 			adapt_scale_to_two.c \
-			upd_abs.c \
-			upd_ord.c \
+			upd_all_abs.c \
+			upd_all_ord.c \
 			handle_key_input.c \
 			open_window.c \
 			close_window.c \

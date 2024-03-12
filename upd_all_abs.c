@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_pixel.c                                       :+:      :+:    :+:   */
+/*   upd_all_abs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 15:51:50 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/12 15:31:51 by stouitou         ###   ########.fr       */
+/*   Created: 2024/03/11 12:03:36 by stouitou          #+#    #+#             */
+/*   Updated: 2024/03/12 16:45:03 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/*
-Allocate memory for pixel structure
-*/
-t_px *init_pixel(t_plane *plane)
+void	upd_all_abs(t_plane *plane)
 {
-	t_px	*pixel;
-
-	pixel = (t_px *)malloc(sizeof(t_px));
-	if (pixel == NULL)
-	{
-		free_plane(plane);
-		exit (EXIT_FAILURE);
-	}
-	return (pixel);
+	plane->x->abs = (int)(cos(45 * M_PI / 180) * plane->x->scale);
+	plane->y->abs = (int)(cos(45 * M_PI / 180) * plane->y->scale);
+	plane->z->abs = 0;
 }
