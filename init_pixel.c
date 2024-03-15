@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:51:50 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/12 15:31:51 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/14 12:53:31 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 Allocate memory for pixel structure
 */
-t_px *init_pixel(t_plane *plane)
+t_px *init_pixel(t_plane *plane, t_coord **coord)
 {
 	t_px	*pixel;
 
@@ -23,6 +23,7 @@ t_px *init_pixel(t_plane *plane)
 	if (pixel == NULL)
 	{
 		free_plane(plane);
+		coord_clear(coord);
 		exit (EXIT_FAILURE);
 	}
 	return (pixel);

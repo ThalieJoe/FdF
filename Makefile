@@ -1,30 +1,31 @@
 NAME = fdf
 
 SOURCES =	main.c \
-			check_grid.c \
-			check_file_ext.c \
 			parse_grid.c \
+			check_file_ext.c \
+			init_grid.c \
+			parse_line.c \
 			init_plane.c \
-			init_plane_height.c \
 			init_plane_width.c \
+			init_plane_height.c \
+			get_height.c \
+			get_depth.c \
 			init_horizontal_margin.c \
 			init_vertical_margin.c \
 			init_pixel.c \
-			adapt_scale_to_two.c \
+			adapt_scale_to_three.c \
 			upd_all_abs.c \
 			upd_all_ord.c \
 			handle_key_input.c \
 			open_window.c \
-			close_window.c \
 			put_plane_in_window.c \
 			show_plane.c \
-			draw_vector_pos.c \
-			draw_vector_neg.c \
+			draw_vector.c \
 			add_to_coord.c \
 			create_map.c \
 			draw.c \
 			bresenham.c \
-			clean_and_exit.c \
+			exit.c \
 			free_tab.c \
 			coord_clear.c \
 			free_plane.c

@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_key_input.c                                 :+:      :+:    :+:   */
+/*   get_height.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 15:37:24 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/14 14:12:52 by stouitou         ###   ########.fr       */
+/*   Created: 2024/03/14 16:30:16 by stouitou          #+#    #+#             */
+/*   Updated: 2024/03/15 15:56:04 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	handle_key_input(int keysym, t_xvar *connect)
+/*
+Get the newest ord of the highest scaled coordinate
+*/
+int	get_height(t_grid grid, t_plane plane)
 {
-	if (keysym == XK_Escape)
-	{
-		ft_printf("key pressed is %?32d\n", keysym);
-		mlx_loop_end(connect);
-		return (0);
-	}
-	ft_printf("key pressed is %?33d\n", keysym);
-	return (0);
+	int	height;
+	int	scaled_highest;
+
+	scaled_highest = grid.highest * plane.z->ord;
+	height = (grid.length * ft_valabs(plane.x->ord)) + scaled_highest;
+	return (height);
 }

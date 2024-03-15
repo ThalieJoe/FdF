@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_window.c                                     :+:      :+:    :+:   */
+/*   get_depth.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 15:04:50 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/11 15:05:21 by stouitou         ###   ########.fr       */
+/*   Created: 2024/03/14 16:31:37 by stouitou          #+#    #+#             */
+/*   Updated: 2024/03/15 15:58:46 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	close_window(t_xvar *connect)
+/*
+Get the newest ord of the deepest scaled coordinate
+*/
+int	get_depth(t_grid grid, t_plane plane)
 {
-	mlx_loop_end(connect);
-	mlx_destroy_window(connect, connect->win_list);
-	return (0);
+	int	depth;
+	int	scaled_deepest;
+
+	scaled_deepest = grid.deepest * plane.z->ord;
+	depth = (grid.width * plane.y->ord) + scaled_deepest;
+	return (depth * (-1));
 }

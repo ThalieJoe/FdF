@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:54:27 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/11 17:11:34 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/15 14:16:14 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 void	coord_clear(t_coord **coord)
 {
-	t_coord	*next;
+	t_coord	*head;
+	t_coord	*prev;
 
 	if (coord == NULL)
 		return ;
-	while (*coord)
+	head = (*coord)->head;
+	while (head)
 	{
-		next = (*coord)->next;
-		free((*coord)->px);
-		free(*coord);
-		*coord = next;
+		prev = head->prev;
+		free(head->px);
+		free(head);
+		head = prev;
 	}
 	*coord = NULL;
 }

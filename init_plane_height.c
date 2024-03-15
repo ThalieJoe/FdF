@@ -6,48 +6,72 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:57:26 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/12 16:53:31 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/15 16:09:19 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+static int	upd_plane_width(t_grid grid, t_plane *plane)
+{
+	int	length;
+	int	width;
+
+	length = (grid.length - 1) * plane->x->abs;
+	width = (grid.width - 1) * plane->y->abs;
+	if (length + width > 1920)
+		return (1920);
+	return (length + width);
+}
+
 /*
 Keeps the scales coherent
 */
-static void	standardize_scales(t_plane *plane)
+static void	standardize_scales(t_grid grid, t_plane *plane)
 {
+	bool	mod_sc;
+
+	mod_sc = false;
 	if (plane->z->scale <= plane->x->scale / 2 && plane->z->scale > 10)
+	{
 		plane->x->scale /= 2;
+		mod_sc = true;
+	}
 	if (plane->z->scale <= plane->y->scale / 2 && plane->z->scale > 10)
+	{
 		plane->y->scale /= 2;
+		mod_sc = true;
+	}
+	if (plane->x->scale < 5 || plane->y->scale < 5)
+		plane->h_rot = 45;
+	upd_all_abs(plane);
+	upd_all_ord(plane);
+	if (mod_sc)
+		plane->width = upd_plane_width(grid, plane);
 }
 
-/*
-Get the newest ord of the highest scaled coordinate
-*/
-static int	get_height(t_grid grid, t_plane plane)
+static int	upd_plane_height(t_grid grid, t_plane *plane)
 {
 	int	height;
-	int	scaled_highest;
-
-	scaled_highest = grid.highest * plane.z->ord;
-	height = (grid.length * plane.x->ord) + scaled_highest;
-	return (height);
-}
-
-/*
-Get the newest ord of the deepest scaled coordinate
-*/
-static int	get_depth(t_grid grid, t_plane plane)
-{
 	int	depth;
-	int	scaled_deepest;
 
-	scaled_deepest = grid.deepest * plane.z->ord;
-	depth = (grid.width * plane.y->ord) + scaled_deepest;
-	ft_printf("In get_depth, depth = %d\n (pos depth is returned!)\n", depth);
-	return (depth * (-1));
+	height = get_height(grid, *plane);
+	depth = get_depth(grid, *plane);
+	while (height + depth > 1050)
+	{
+		plane->x->scale = plane->x->scale * 9 / 10;
+		plane->y->scale = plane->y->scale * 9 / 10;
+		if (plane->x->scale < 3 || plane->y->scale < 3)
+		{
+			adapt_scale_to_three(plane);
+			return (1050);
+		}
+		upd_all_abs(plane);
+		upd_all_ord(plane);
+		height = get_height(grid, *plane);
+		depth = get_depth(grid, *plane);
+	}
+	return (height + depth);
 }
 
 /*
@@ -63,14 +87,14 @@ int	init_plane_height(t_grid grid, t_plane *plane)
 	while (height + depth > 1050)
 	{
 		plane->z->scale = plane->z->scale * 9 / 10;
-		standardize_scales(plane);
-		if (plane->z->scale == 0)
+		if (plane->z->scale < 3)
 		{
-			adapt_scale_to_two(plane);
-			return (1050);
+			adapt_scale_to_three(plane);
+			plane->height = upd_plane_height(grid, plane);
+			plane->width = upd_plane_width(grid, plane);
+			return (plane->height);
 		}
-		upd_all_abs(plane);
-		upd_all_ord(plane);
+		standardize_scales(grid, plane);
 		height = get_height(grid, *plane);
 		depth = get_depth(grid, *plane);
 	}

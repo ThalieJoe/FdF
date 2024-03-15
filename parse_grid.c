@@ -6,68 +6,39 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 13:03:52 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/11 16:17:13 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/15 16:09:11 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	get_extremes(t_grid *grid, char *str)
-{
-	char	**line;
-	int		i;
-
-	if (str == NULL)
-		return ;
-	line = ft_split(str, " \n");
-	i = 0;
-	while (line[i])
-	{
-		if (ft_atoi(line[i]) < grid->deepest)
-			grid->deepest = ft_atoi(line[i]);
-		if (ft_atoi(line[i]) > grid->highest)
-			grid->highest = ft_atoi(line[i]);
-		i++;
-	}
-	free_tab(line);
-}
-
-static int	grid_length(char *str)
-{
-	char	**line;
-	int		i;
-
-	line = ft_split(str, " \n");
-	i = 0;
-	while (line[i])
-		i++;
-	free_tab(line);
-	return (i);
-}
-
-void	parse_grid(char *file, t_grid *grid)
+void	parse_grid(char *file, t_grid *grid, t_coord **coord)
 {
 	int		fd;
-	char	*str;
+	char	*line;
+	int		it;
 
-	check_grid(file);
+	it = 1;
+	check_file_ext(file);
+	ft_printf("ext checked\n");
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		exit (1);
-	grid->name = file;
-	grid->deepest = 0;
-	grid->highest = 0;
-	str = get_next_line(fd);
-	get_extremes(grid, str);
-	grid->width = 0;
-	grid->length = grid_length(str);
-	free(str);
-	while (str)
+	ft_printf("fd opened\n");
+	init_grid(file, grid, fd);
+	ft_printf("grid initiated\n");
+	while (1)
 	{
-		str = get_next_line(fd);
-		get_extremes(grid, str);
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
+		ft_printf("line number %d got\n", it);
+		it++;
 		grid->width++;
-		free(str);
+		parse_line(line, grid, coord);
+		free (line);
 	}
-	close (fd);
+	if (grid->width == 0)
+		exit (1);
+	close(fd);
 }
