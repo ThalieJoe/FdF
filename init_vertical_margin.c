@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:55:55 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/14 16:35:42 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/19 14:14:34 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,5 @@ int	init_vertical_margin(t_grid grid, t_plane plane)
 	margin = 5;
 	if ((margin * 2) + height + depth > 1050)
 		margin = (1050 - (height + depth)) / 2;
-	ft_printf("in init vert margin, margin = %d and plane.height = %d\n", margin, plane.height);
 	return (margin);
 }

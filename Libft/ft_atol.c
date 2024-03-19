@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 10:33:04 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/06 12:12:30 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:38:26 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static bool	beyond_limits(const char *nb)
 	i = 0;
 	while (ft_isdigit(nb[i]))
 		i++;
-	if (i > 18)
+	if (i > 19)
 		return (true);
 	return (false);
 }

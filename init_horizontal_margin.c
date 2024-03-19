@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:44:18 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/14 16:35:31 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/19 14:14:11 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,5 @@ int	init_horizontal_margin(t_grid grid, t_plane plane)
 	margin = 5;
 	if ((margin * 2) + length + width > 1920)
 		margin = (1920 - (length + width)) / 2;
-	ft_printf("in init horiz margin, margin = %d and plane.width = %d\n", margin, plane.width);
 	return (margin);
 }

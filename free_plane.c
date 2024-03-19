@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:32:37 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/11 16:36:42 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:47:45 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,6 @@ void	free_plane(t_plane *plane)
 	free(plane->y);
 	free(plane->z);
 	free(plane->o);
+	free(plane);
+	plane = NULL;
 }

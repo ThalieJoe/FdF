@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 13:25:40 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/15 14:47:32 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/19 14:07:59 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ static t_coord	*coord_new(int *val)
 	new->x = val[0];
 	new->y = val[1];
 	new->z = val[2];
-	new->px = NULL;
+	new->px = init_pixel();
+	if (new->px == NULL)
+		return (NULL);
 	new->prev_x = NULL;
 	new->prev_y = NULL;
 	new->prev = NULL;
@@ -82,7 +84,7 @@ static t_coord	*coord_new(int *val)
 	return (new);
 }
 
-void	add_to_coord(char **elem, t_coord **coord, t_grid *grid, char *line)
+void	add_to_coord(char **elem, t_map *map, char *line)
 {
 	int			i;
 	int			val[3];
@@ -97,9 +99,9 @@ void	add_to_coord(char **elem, t_coord **coord, t_grid *grid, char *line)
 		val[2] = ft_atoi(elem[i]);
 		new = coord_new(val);
 		if (new == NULL)
-			free_and_exit(grid->fd, coord, elem, line);
+			free_and_exit(map->grid.fd, &(map->coord), elem, line);
 		find_color(new, elem[i]);
-		(*coord)->head = coord_add_back(coord, new);
+		map->coord->head = coord_add_back(&(map->coord), new);
 		find_coord_previous(new);
 		i++;
 	}

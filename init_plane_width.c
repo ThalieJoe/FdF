@@ -6,7 +6,7 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:02:18 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/15 15:35:07 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/19 14:09:29 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ static void	standardize_scales(t_grid grid, t_plane *plane)
 		plane->x->scale /= 2;
 	if (plane->x->scale <= plane->z->scale / 2
 		|| plane->y->scale <= plane->z->scale / 2)
-	{
 		plane->z->scale /= 2;
-		// plane->height = init_plane_height(grid, plane);
-	}
 	if (plane->x->scale < 5 || plane->y->scale < 5)
 		plane->h_rot = 45;
 }

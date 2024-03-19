@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_pixel.c                                       :+:      :+:    :+:   */
+/*   exit_before_window.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 15:51:50 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/19 14:06:05 by stouitou         ###   ########.fr       */
+/*   Created: 2024/03/19 14:24:09 by stouitou          #+#    #+#             */
+/*   Updated: 2024/03/19 14:24:22 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/*
-Allocate memory for pixel structure
-*/
-t_px	*init_pixel(void)
+void	exit_before_window(t_map *map)
 {
-	t_px	*pixel;
-
-	pixel = (t_px *)malloc(sizeof(t_px));
-	if (pixel == NULL)
-		return (NULL);
-	return (pixel);
+	free_plane(map->plane);
+	coord_clear(&(map->coord));
+	img_clear(map->connect, &map->image);
+	mlx_destroy_display(map->connect);
+	free(map->connect);
+	exit (EXIT_FAILURE);
 }

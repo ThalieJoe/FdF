@@ -6,13 +6,13 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:40:29 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/13 11:38:29 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:10:25 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	line_up_up_bresenham(t_xvar *connect, t_px cur, t_px prev, int color)
+void	line_up_up_bresenham(t_img *img, t_px cur, t_px prev, int color)
 {
 	int	dx;
 	int	dy;
@@ -23,7 +23,7 @@ void	line_up_up_bresenham(t_xvar *connect, t_px cur, t_px prev, int color)
 	p = 2 * dx - dy;
 	while (prev.ord > cur.ord)
 	{
-		mlx_pixel_put(connect, connect->win_list, prev.abs, prev.ord, color);
+		my_pixel_put(img, prev.abs, prev.ord, color);
 		prev.ord--;
 		if (p < 0)
 			p += 2 * dx;
@@ -35,7 +35,7 @@ void	line_up_up_bresenham(t_xvar *connect, t_px cur, t_px prev, int color)
 	}
 }
 
-void	line_up_left_bresenham(t_xvar *connect, t_px cur, t_px prev, int color)
+void	line_up_left_bresenham(t_img *img, t_px cur, t_px prev, int color)
 {
 	int	dx;
 	int	dy;
@@ -46,7 +46,7 @@ void	line_up_left_bresenham(t_xvar *connect, t_px cur, t_px prev, int color)
 	p = 2 * dy - dx;
 	while (prev.abs < cur.abs)
 	{
-		mlx_pixel_put(connect, connect->win_list, prev.abs, prev.ord, color);
+		my_pixel_put(img, prev.abs, prev.ord, color);
 		prev.abs++;
 		if (p < 0)
 			p += 2 * dy;
@@ -58,7 +58,7 @@ void	line_up_left_bresenham(t_xvar *connect, t_px cur, t_px prev, int color)
 	}
 }
 
-void	line_down_left_bresenham(t_xvar *connect, t_px cur, t_px prev, int color)
+void	line_down_left_bresenham(t_img *img, t_px cur, t_px prev, int color)
 {
 	int	dx;
 	int	dy;
@@ -69,7 +69,7 @@ void	line_down_left_bresenham(t_xvar *connect, t_px cur, t_px prev, int color)
 	p = 2 * dy - dx;
 	while (prev.abs < cur.abs)
 	{
-		mlx_pixel_put(connect, connect->win_list, prev.abs, prev.ord, color);
+		my_pixel_put(img, prev.abs, prev.ord, color);
 		prev.abs++;
 		if (p < 0)
 			p += 2 * dy;
@@ -81,7 +81,7 @@ void	line_down_left_bresenham(t_xvar *connect, t_px cur, t_px prev, int color)
 	}
 }
 
-void	line_down_down_bresenham(t_xvar *connect, t_px cur, t_px prev, int color)
+void	line_down_down_bresenham(t_img *img, t_px cur, t_px prev, int color)
 {
 	int	dx;
 	int	dy;
@@ -92,7 +92,7 @@ void	line_down_down_bresenham(t_xvar *connect, t_px cur, t_px prev, int color)
 	p = 2 * dx - dy;
 	while (prev.ord < cur.ord)
 	{
-		mlx_pixel_put(connect, connect->win_list, prev.abs, prev.ord, color);
+		my_pixel_put(img, prev.abs, prev.ord, color);
 		prev.ord++;
 		if (p < 0)
 			p += 2 * dx;

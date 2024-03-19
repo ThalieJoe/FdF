@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_pixel.c                                       :+:      :+:    :+:   */
+/*   free_and_exit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 15:51:50 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/19 14:06:05 by stouitou         ###   ########.fr       */
+/*   Created: 2024/03/19 13:37:44 by stouitou          #+#    #+#             */
+/*   Updated: 2024/03/19 13:42:36 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/*
-Allocate memory for pixel structure
-*/
-t_px	*init_pixel(void)
+void	free_and_exit(int fd, t_coord **coord, char **elem, char *line)
 {
-	t_px	*pixel;
-
-	pixel = (t_px *)malloc(sizeof(t_px));
-	if (pixel == NULL)
-		return (NULL);
-	return (pixel);
+	free_tab(elem);
+	coord_clear(coord);
+	free (line);
+	close (fd);
+	exit (EXIT_FAILURE);
 }

@@ -6,33 +6,11 @@
 /*   By: stouitou <stouitou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:34:02 by stouitou          #+#    #+#             */
-/*   Updated: 2024/03/15 14:47:07 by stouitou         ###   ########.fr       */
+/*   Updated: 2024/03/19 13:42:59 by stouitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "time.h"
-
-// static void	print_coord(t_coord *coord)
-// {
-// 	while (coord)
-// 	{
-// 		ft_printf("%?32s %?92s\n", "NEW", "NODE :");
-// 		ft_printf("coord->x = %d\n", coord->x);
-// 		ft_printf("coord->y = %d\n", coord->y);
-// 		ft_printf("coord->z = %d\n", coord->z);
-// 		ft_printf("coord->px->abs = %d\n", coord->px->abs);
-// 		ft_printf("coord->px->ord = %d\n", coord->px->ord);
-// 		printf("coord->color = %ld\n", coord->color);
-// 		if (coord->prev_x)
-// 			ft_printf("coord->prev_x->x = %?33d, coord->prev_x->y = %?33d\n", coord->prev_x->x, coord->prev_x->y);
-// 		if (coord->prev_y)
-// 			ft_printf("coord->prev_y->x = %?34d, coord->prev_y->y = %?34d\n", coord->prev_y->x, coord->prev_y->y);
-// 		if (coord->head)
-// 			ft_printf("coord->head->x = %?34d, coord->head->y = %?34d\n", coord->head->x, coord->head->y);
-// 		coord = coord->next;
-// 	}
-// }
 
 static int	check_color(char *color)
 {
@@ -110,22 +88,16 @@ static void	get_extremes(char **elem, t_grid *grid)
 	}
 }
 
-void	parse_line(char *line, t_grid *grid, t_coord **coord)
+void	parse_line(char *line, t_map *map)
 {
 	char	**elem;
-	clock_t	start, end;
-	double	cpu_time_used;
 
 	elem = ft_split(line, " \n");
 	if (elem == NULL)
-		free_and_exit(grid->fd, coord, elem, line);
-	check_elem(elem, grid, coord, line);
-	get_grid_len(elem, grid, coord, line);
-	get_extremes(elem, grid);
-	start = clock();
-	add_to_coord(elem, coord, grid, line);
-	end = clock();
-	cpu_time_used = (double)(end - start) / CLOCKS_PER_SEC;
-	printf("add_to_coord %f seconds\n", cpu_time_used);
+		free_and_exit(map->grid.fd, &(map->coord), elem, line);
+	check_elem(elem, &(map->grid), &(map->coord), line);
+	get_grid_len(elem, &(map->grid), &(map->coord), line);
+	get_extremes(elem, &(map->grid));
+	add_to_coord(elem, map, line);
 	free_tab(elem);
 }

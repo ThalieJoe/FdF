@@ -1,34 +1,40 @@
 NAME = fdf
 
 SOURCES =	main.c \
+			init_map.c \
 			parse_grid.c \
-			check_file_ext.c \
-			init_grid.c \
 			parse_line.c \
+			add_to_coord.c \
 			init_plane.c \
 			init_plane_width.c \
 			init_plane_height.c \
+			adapt_scale_to_three.c \
 			get_height.c \
 			get_depth.c \
-			init_horizontal_margin.c \
-			init_vertical_margin.c \
-			init_pixel.c \
-			adapt_scale_to_three.c \
 			upd_all_abs.c \
 			upd_all_ord.c \
-			handle_key_input.c \
-			open_window.c \
-			put_plane_in_window.c \
-			show_plane.c \
-			draw_vector.c \
-			add_to_coord.c \
+			init_horizontal_margin.c \
+			init_vertical_margin.c \
+			create_image.c \
+			put_plane_in_image.c \
 			create_map.c \
 			draw.c \
+			my_pixel_put.c \
 			bresenham.c \
-			exit.c \
+			open_window.c \
+			handle_key_input.c \
+			add_new_image.c \
+			translations.c \
+			rotations.c \
+			zoom.c \
+			init_pixel.c \
 			free_tab.c \
+			free_plane.c \
 			coord_clear.c \
-			free_plane.c
+			img_clear.c \
+			free_and_exit.c \
+			exit_before_window.c \
+			clean_all.c
 
 OBJ_DIR = .obj
 OBJETS = ${addprefix ${OBJ_DIR}/,${SOURCES:.c=.o}}
